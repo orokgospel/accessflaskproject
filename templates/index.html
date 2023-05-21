@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Access Code Generating App</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='refresh.png') }}">
+  <script>
+    function refreshPage() {
+      window.location.reload();
+    }
+  </script>
+  <style>
+    footer {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>A Trusted Access Code System for Geovision ASManager</h1>
+  </header>
+
+  <main>
+    <section id="landing">
+      <h2>Welcome! Generate your Access Code for your Intended Visitors</h2>
+      <p>Get started by creating an account or login if you already have one.</p>
+      <a href="{{ url_for('create_account') }}">Create Account</a>
+      <a href="{{ url_for('login') }}">Login</a>
+      <button onclick="refreshPage()"><img src="{{ url_for('static', filename='refresh.png') }}" alt="Refresh"></button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023@NEAT-IT-Solutions. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+

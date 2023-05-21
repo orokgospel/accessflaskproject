@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate Access Code</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Generate Access Code</h1>
+  </header>
+
+  <main>
+    <a href="/">Home-page</a>
+    <section id="generate_code">
+      <h2>Access Code Details</h2>
+      <form method="POST" action="/generate_code">
+        <label for="visitorname">Visitor's Name:</label>
+        <input type="text" id="visitorname" name="visitorname" required>
+
+        <label for="visitaddress">Place of Visit:</label>
+        <input type="text" id="visitaddress" name="visitaddress" required>
+        
+        <label for="residentname">Name of Resident:</label>
+        <input type="text" id="residentname" name="residentname" required>
+
+        <label for="arrivalday">Expected Day:</label>
+        <input type="date" id="arrivalday" name="arrivalday" required>
+
+        <label for="arrivaltime">Expected Time of Arrival:</label>
+        <input type="time" id="arrivaltime" name="arrivaltime" required>
+        <br>
+        <input type="submit" value="Generate Code">
+      </form>
+      <br>
+      {% if code %}
+        <p><strong>Access code successfully generated:</strong></p>
+        <p>Code: {{ code }}</p>
+      {% endif %}
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2023@NEAT-IT-Solutions. All rights reserved.</p>
+  </footer>
+</body>
+</html>
