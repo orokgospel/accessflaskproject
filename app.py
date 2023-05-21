@@ -137,20 +137,20 @@ def generate_code():
         arrival_day = request.form['arrivalday']
         arrival_time = request.form['arrivaltime']
 
-        # Generate a code by subtracting 23 repeatedly from 7000
-        serial_start = 7000
-        serial_end = 4000
+        start = 1000
+        end = 5000
 
-        code = serial_start
-        while code >= serial_end:
-            code -= 23
+        if not hasattr(generate_code, 'code'):  # Check if attribute exists
+            generate_code.code = start  # Initialize code attribute
 
-        # Reshuffle the digits of the code
-            code_digits = list(str(code))
-            random.shuffle(code_digits)
-            reshuffled_code = int(''.join(code_digits))
+        code = generate_code.code
+        if code <= end:
+            result = code
+            generate_code.code += 1  # Increment code for next call
+        else:
+            raise ValueError("Code number range exceeded.")
 
-        return render_template('generate_code.html', code=reshuffled_code)
+        return render_template('generate_code.html', code=result)
     return render_template('generate_code.html')
 
 if __name__ == '__main__':
