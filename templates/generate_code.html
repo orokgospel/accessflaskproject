@@ -27,14 +27,14 @@
         <input type="date" id="arrivalday" name="arrivalday" required>
 
         <label for="arrivaltime">Expected Time of Arrival:</label>
-        <input type="time" id="arrivaltime" name="arrivaltime" required>
+        <input type="text" id="arrivaltime" name="arrivaltime" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" placeholder="HH:mm" required>
         <br>
         <input type="submit" value="Generate Code">
       </form>
       <br>
       {% if code %}
-        <p><strong>Access code successfully generated:</strong></p>
-        <p>Code: {{ code }}</p>
+        <p><strong style="color: green;">Access code successfully generated</strong></p>
+        <p><strong>{{ code }}</strong></p>
       {% endif %}
     </section>
   </main>

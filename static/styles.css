@@ -49,3 +49,7 @@ form input[type="submit"] {
 .error {
   color: red;
 }
+
+.code {
+  color: rgb(0, 17, 255);
+}
