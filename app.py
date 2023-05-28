@@ -1,6 +1,7 @@
 import random
 from flask import Flask, render_template, request, redirect, session
 import sqlite3
+import datetime
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 app.debug = True
@@ -17,7 +18,6 @@ def create_users_table():
     c.close()
     conn.close()
 
-
 @app.route('/')
 def landing():
     return render_template('index.html')
@@ -29,19 +29,19 @@ def create_account():
         username = request.form['username']
         password = request.form['password']
         confirm_password = request.form['confirm_password']
+        residentkey = request.form['residentkey']
         emailaddress = request.form['emailaddress']
         firstname = request.form['firstname']
         lastname = request.form['lastname']
-        residentkey = request.form['residentkey']
+        
 
         # Validate form data
         if password != confirm_password:
             error_message = "Passwords do not match."
             return render_template('create_account.html', error=error_message)
-        elif residentkey!="NELNA23":
-            error_message="Please enter correct resident key."
-            return render_template('create_account.html', error=error_message)
-
+        elif residentkey != "NELNA23":
+                error_message = "Please enter correct resident key."
+                return render_template('create_account.html', error=error_message)
         try:
             # Create 'users' table if it doesn't exist
             create_users_table()
@@ -61,17 +61,18 @@ def create_account():
                 "INSERT INTO users (username, password, emailaddress, firstname, lastname, residentkey) VALUES (?, ?, ?, ?, ?, ?)",
                 (username, password, emailaddress, firstname, lastname, residentkey))
             conn.commit()
-
-            # Redirect to login page
-            return redirect('/login')
         
-       
+            # Redirect to login page with success message
+            return render_template('create_account.html', message="Account successfully created!")
+
+
         finally:
             # Close the cursor and connection after each request
             c.close()
             conn.close()
+            
+    return render_template('create_account.html',message="")  # No error initially
 
-    return render_template('create_account.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -119,39 +120,53 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/logout')
-def logout():
-    # Clear session variable to indicate user logout
-    session.clear()
-
-    # Redirect to login page or homepage
-    return redirect('/login')
 
 @app.route('/generate_code', methods=['GET', 'POST'])
+
 def generate_code():
     if request.method == 'POST':
         # Handle the form submission and generate the access code
-        visitor_name = request.form['visitorname']
-        visit_address = request.form['visitaddress']
-        resident_name = request.form['residentname']
-        arrival_day = request.form['arrivalday']
-        arrival_time = request.form['arrivaltime']
+        visitorname = request.form['visitorname']
+        visitaddress = request.form['visitaddress']
+        hostname = request.form['hostname']
+        arrivalday = request.form['arrivalday']
+        arrivaltime = request.form['arrivaltime']
+        deactivationdate = request.form['deactivationdate']
 
-        start = 1000
-        end = 5000
+        current_date = datetime.date.today()  # Get the current date
+        code = random.randint(4000, 7000)  # Generate a random 4-digit code
 
-        if not hasattr(generate_code, 'code'):  # Check if attribute exists
-            generate_code.code = start  # Initialize code attribute
+        # Create 'visitors' table if it doesn't exist
+        conn = sqlite3.connect('users.db')
+        c = conn.cursor()
+        c.execute(
+            "CREATE TABLE IF NOT EXISTS visitors (visitorname TEXT, visitaddress TEXT, hostname TEXT, arrivalday TEXT, arrivaltime TEXT, deactivationdate TEXT, code TEXT)")
+        conn.commit()
 
-        code = generate_code.code
-        if code <= end:
-            result = code
-            generate_code.code += 1  # Increment code for next call
-        else:
-            raise ValueError("Code number range exceeded.")
+        # Check if the generated code already exists in the database
+        c.execute("SELECT * FROM visitors WHERE code = ?", (str(code),))
+        existing_code = c.fetchone()
 
-        return render_template('generate_code.html', code=result)
+        # Change the code if it already exists
+        while existing_code:
+            code = random.randint(4000, 7000)
+            c.execute("SELECT * FROM visitors WHERE code = ?", (str(code),))
+            existing_code = c.fetchone()
+
+        # Store visitor details in the 'visitors' table
+        c.execute(
+            "INSERT INTO visitors (visitorname, visitaddress, hostname, arrivalday, arrivaltime, deactivationdate, code) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (visitorname, visitaddress, hostname, arrivalday, arrivaltime, deactivationdate, str(code)))
+        conn.commit()
+
+        # Close the cursor and connection after each request
+        c.close()
+        conn.close()
+
+        return render_template('generate_code.html', access="Access Code Successfully Generated!", code=code)
     return render_template('generate_code.html')
+
+
 
 if __name__ == '__main__':
     app.run()

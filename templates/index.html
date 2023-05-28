@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Access Code Generating App</title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-  <link rel="icon" href="{{ url_for('static', filename='refresh.png') }}">
+  <div id="center-container">
+    <link rel="icon" href="{{ url_for('static', filename='refresh.png') }}">
+  </div>
   <script>
     function refreshPage() {
       window.location.reload();
@@ -15,17 +18,28 @@
     }
   </style>
 </head>
+
 <body>
   <header>
-    <h1>A Trusted Access Code System for Geovision ASManager</h1>
+    <div id="center-container">
+      <h1>A Trusted Access Code System for Geovision ASManager</h1>
+    </div>
   </header>
 
   <main>
     <section id="landing">
-      <h2>Welcome! Generate your Access Code for your Intended Visitors</h2>
-      <p>Get started by creating an account or login if you already have one.</p>
-      <a href="{{ url_for('create_account') }}">Create Account</a>
-      <a href="{{ url_for('login') }}">Login</a>
+      <div id="center-container">
+        <h2>Welcome! Generate your Access Code for your Intended Visitors</h2>
+        <p class="success"><em>Get started by creating an account or login if you already have one.</em></p>
+        <p></p>
+        <br>
+        <p><br></p>
+        <a href="{{ url_for('create_account') }}">Create Account</a>
+        <a href="{{ url_for('login') }}">Login</a>
+      </div>      
+      <br>
+     
+      <p></p>
       <button onclick="refreshPage()"><img src="{{ url_for('static', filename='refresh.png') }}" alt="Refresh"></button>
     </section>
   </main>

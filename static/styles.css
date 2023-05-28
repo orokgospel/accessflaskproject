@@ -1,7 +1,13 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#center-container {
+  text-align: center;
 }
 
 header {
@@ -46,10 +52,11 @@ form input[type="submit"] {
   border: none;
   cursor: pointer;
 }
+
 .error {
   color: red;
 }
 
-.code {
-  color: rgb(0, 17, 255);
+.success {
+  color: rgb(42, 116, 48);
 }

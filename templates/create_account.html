@@ -11,7 +11,7 @@
   </header>
 
   <main>
-    <a href="/">Home-page</a>
+    
     <section id="create-account">
       <h2>Create Account</h2>
       {% if error %}
@@ -41,7 +41,11 @@
         <input type="text" id="residentkey" name="residentkey" required>
 
         <input type="submit" value="Create">
+        {% if message %}
+        <p class="success">{{ message }}</p>
+        {% endif %}
       </form>
+      <a href="/">Home-page</a>
     </section>
   </main>
 

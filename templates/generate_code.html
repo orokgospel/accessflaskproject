@@ -10,7 +10,7 @@
   </header>
 
   <main>
-    <a href="/">Home-page</a>
+    <a href="/">Log-out</a>
     <section id="generate_code">
       <h2>Access Code Details</h2>
       <form method="POST" action="/generate_code">
@@ -20,21 +20,23 @@
         <label for="visitaddress">Place of Visit:</label>
         <input type="text" id="visitaddress" name="visitaddress" required>
         
-        <label for="residentname">Name of Resident:</label>
-        <input type="text" id="residentname" name="residentname" required>
+        <label for="hostname">Host:</label>
+        <input type="text" id="hostame" name="hostname" required>
 
         <label for="arrivalday">Expected Day:</label>
         <input type="date" id="arrivalday" name="arrivalday" required>
 
-        <label for="arrivaltime">Expected Time of Arrival:</label>
-        <input type="text" id="arrivaltime" name="arrivaltime" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" placeholder="HH:mm" required>
+        <label for="arrivaltime">Expected Time of Arrival- 12hrs Format (01:00 AM):</label>
+        <input type="text" id="arrivaltime" name="arrivaltime" required pattern="(1[0-2]|0?[1-9]):[0-5][0-9] (AM|PM)">
+
+        <label for="deactivationdate">Deactivation Date:</label>
+        <input type="date" id="deactivationdate" name="deactivationdate" required>
         <br>
         <input type="submit" value="Generate Code">
       </form>
-      <br>
       {% if code %}
-        <p><strong style="color: green;">Access code successfully generated</strong></p>
-        <p><strong>{{ code }}</strong></p>
+        <p class="success">{{ access}}</p>
+        <p>Code: {{ code }}</p>
       {% endif %}
     </section>
   </main>
