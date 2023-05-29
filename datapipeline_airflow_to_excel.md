@@ -6,9 +6,10 @@ Create a new virtual environment (optional but recommended):
   - Navigate to your desired directory where you want to create the virtual environment.
   - Run the following command to create a new virtual environment (replace myenv with your preferred environment name):
    python -m venv myenv
+
 Activate the virtual environment:
 On Windows, run:
-myenv\Scripts\activate
+    myenv\Scripts\activate
 
 Install Apache Airflow by running pip install apache-airflow in your Python environment:
   pip install apache-airflow
