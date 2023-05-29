@@ -1,18 +1,32 @@
 To develop a data pipeline that extracts data from your web app and outputs it to an Excel file on a scheduled interval using Airflow and Python, you can follow these detailed steps:
 
 Set up Airflow:
+Create a new virtual environment (optional but recommended):
+  - Open a terminal or command prompt.
+  - Navigate to your desired directory where you want to create the virtual environment.
+  - Run the following command to create a new virtual environment (replace myenv with your preferred environment name):
+   python -m venv myenv
+Activate the virtual environment:
+On Windows, run:
+myenv\Scripts\activate
 
-Install Apache Airflow by running pip install apache-airflow in your Python environment.
+Install Apache Airflow by running pip install apache-airflow in your Python environment:
+  pip install apache-airflow
+
 Initialize the Airflow database by running airflow initdb. This will create the necessary tables and configurations for Airflow.
+
 Define your DAG (Directed Acyclic Graph):
 
 Create a Python file in your Airflow project directory and define your DAG.
+
 Import the required modules: from datetime import datetime, timedelta and from airflow import DAG.
 Define the default arguments for your DAG, such as start_date, schedule_interval, and catchup.
+
 Initialize the DAG: dag = DAG('data_pipeline', default_args=default_args). Replace 'data_pipeline' with your desired DAG name.
 Define the task to extract data from your web app:
 
 Import the necessary modules for the task, such as requests for making HTTP requests and pandas for data manipulation.
+
 Define a Python function that performs the data extraction process.
 Inside the function, make the necessary HTTP requests to your web app to fetch the data.
 Use pandas to manipulate and transform the data as needed.
