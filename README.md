@@ -17,3 +17,5 @@ The resident is expected to login with his or her registered username and passwo
 first and second name, visit duration, expected time of arrival, number of persons, generate code or cancel access code.
 The access code is expected to last for stipulated registered date(duration)as selected by the resident. 
 The resident can also login to cancel or revoke the visitors access privilege.
+
+Alot to get from this project
