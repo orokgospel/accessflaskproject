@@ -35,8 +35,14 @@
         <input type="submit" value="Generate Code">
       </form>
       {% if code %}
-        <p class="success">{{ access}}</p>
+        <p class="success">{{ access }}</p>
         <p>Code: {{ code }}</p>
+      {% endif %}
+    </section>
+
+    <section id="qr_code">
+      {% if code %}
+        <img src="data:image/png;base64,{{ qr_image }}" alt="QR Code">
       {% endif %}
     </section>
   </main>
