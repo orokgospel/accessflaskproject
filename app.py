@@ -3,6 +3,13 @@ from flask import Flask, render_template, request, redirect, session
 import sqlite3
 import datetime
 
+import qrcode
+from PIL import Image
+from io import BytesIO
+import base64
+
+
+
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 app.debug = True
 app.secret_key = 'your_secret_key'  # Set a secret key for session encryption
@@ -163,7 +170,18 @@ def generate_code():
         c.close()
         conn.close()
 
-        return render_template('generate_code.html', access="Access Code Successfully Generated!", code=code)
+        # Generate QR code
+        qr = qrcode.QRCode(version=1, box_size=10, border=5)
+        qr.add_data(str(code))
+        qr.make(fit=True)
+        qr_image = qr.make_image(fill='black', back_color='white')
+
+        # Create a buffer to save the image
+        buffer = BytesIO()
+        qr_image.save(buffer, format='PNG')
+        qr_image_str = base64.b64encode(buffer.getvalue()).decode('utf-8')
+
+        return render_template('generate_code.html', access="Access Code Successfully Generated!", code=code, qr_image=qr_image_str)
     return render_template('generate_code.html')
 
 
