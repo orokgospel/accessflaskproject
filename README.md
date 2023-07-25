@@ -3,7 +3,8 @@ https://generateaccesscode.glitch.me
 
 https://glitch.com/~generateaccesscode
 
-Access Code Generating Web App
+# Access Code Generating Web App
+
 This Web App seeks to solve the problem of unauthorized visitors and entries into major estates and restricted areas. 
 Unauthorised access into major residential estates is a major issue that can be a bridge to the insecurity of lives and properties. The alternate solution currently out there involve the use of traditional(book)entry records and mobile phone calls for unauthorized access verification either by the check-in persons or security personnel. Also considering an estate with more than 100 residents, time wastage, queuing, and congestion at most estate security check-in post, for both pedestrians and vehicles is a major challenge.
 
